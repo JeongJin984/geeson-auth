@@ -2,7 +2,7 @@ package router
 
 import (
 	"geeson-auth/internal/interface/http/handler"
-	"geeson-auth/internal/interface/middleware"
+	"geeson-auth/internal/interface/http/middleware"
 	"github.com/gin-gonic/gin"
 )
 
