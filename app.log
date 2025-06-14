@@ -4,3 +4,14 @@
 {"level":"info","ts":1749863621.0858605,"msg":"Starting server on port 8080"}
 {"level":"info","ts":1749889262.0132842,"msg":"Starting server on port 8080"}
 {"level":"info","ts":1749889619.017073,"msg":"Starting server on port 8080"}
+{"level":"error","ts":1749911309.7334442,"msg":"Failed to connect to database: failed to Ping DB: dial tcp :0: connectex: The requested address is not valid in its context."}
+{"level":"info","ts":1749911334.1525388,"msg":"Starting server on port 8080"}
+{"level":"error","ts":1749911334.1525388,"msg":"Error starting server: listen tcp :8080: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted."}
+{"level":"info","ts":1749911354.402433,"msg":"Starting server on port 8080"}
+{"level":"error","ts":1749911357.7537177,"msg":"Error starting server: listen tcp :8080: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted."}
+{"level":"info","ts":1749911376.6425612,"msg":"Starting server on port 8087"}
+{"level":"info","ts":1749911543.7538688,"msg":"Starting server on port 8087"}
+{"level":"info","ts":1749911571.6246803,"msg":"Starting server on port 8087"}
+{"level":"error","ts":1749911579.474944,"msg":"user not found (username=%s)user1"}
+{"level":"error","ts":1749911590.6399353,"msg":"user not found (username=%s)user1"}
+{"level":"error","ts":1749911617.9508622,"msg":"user not found (username=%s)user1"}

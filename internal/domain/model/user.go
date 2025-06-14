@@ -11,6 +11,7 @@ type User struct {
 	ID        int64     // 고유 식별자
 	Username  string    // 사용자 이름
 	Email     string    // 이메일 주소
+	Password  string    // 비밀번호
 	CreatedAt time.Time // 생성 시각
 }
 
@@ -24,7 +25,7 @@ var (
 var emailRegex = regexp.MustCompile(`^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`)
 
 // NewUser 는 User 도메인 객체를 생성하면서 기본 검증을 수행합니다.
-func NewUser(id int64, username, email string, createdAt time.Time) (*User, error) {
+func NewUser(id int64, username, email, password string, createdAt time.Time) (*User, error) {
 	if username == "" {
 		return nil, ErrInvalidUsername
 	}
@@ -35,6 +36,7 @@ func NewUser(id int64, username, email string, createdAt time.Time) (*User, erro
 		ID:        id,
 		Username:  username,
 		Email:     email,
+		Password:  password,
 		CreatedAt: createdAt,
 	}, nil
 }

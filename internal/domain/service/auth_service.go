@@ -2,17 +2,33 @@ package service
 
 import (
 	"errors"
+	"geeson-auth/internal/interface/repository"
 	"geeson-auth/pkg/jwt"
 )
 
-var dummyUsers = map[string]string{
-	"user1": "pass1",
-	"admin": "admin123",
+var (
+	ErrInvalidCredentials = errors.New("invalid credentials")
+	userRepo              repository.UserRepository
+)
+
+// SetUserRepository sets the user repository for the auth service
+func SetUserRepository(repo repository.UserRepository) {
+	userRepo = repo
 }
 
 func Authenticate(username, password string) (string, error) {
-	if pw, ok := dummyUsers[username]; ok && pw == password {
-		return jwt.GenerateJWT(username)
+	if userRepo == nil {
+		return "", errors.New("user repository not initialized")
 	}
-	return "", errors.New("invalid credentials")
+
+	user, err := userRepo.GetByUsername(username)
+	if err != nil {
+		return "", ErrInvalidCredentials
+	}
+
+	if user.Password != password {
+		return "", ErrInvalidCredentials
+	}
+
+	return jwt.GenerateJWT(username)
 }

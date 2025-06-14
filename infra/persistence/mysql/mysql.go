@@ -9,7 +9,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-func NewMySqlDB() (*sql.DB, error) {
+func CreateMySqlDB() (*sql.DB, error) {
 	user := os.Getenv("DB_USER")     // e.g. "root"
 	password := os.Getenv("DB_PASS") // e.g. "secret"
 	host := os.Getenv("DB_HOST")     // e.g. "127.0.0.1"
