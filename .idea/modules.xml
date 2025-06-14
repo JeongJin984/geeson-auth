@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/geeson-auth.iml" filepath="$PROJECT_DIR$/geeson-auth.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/geeson-auth.iml" filepath="$PROJECT_DIR$/.idea/geeson-auth.iml" />
     </modules>
   </component>
 </project>
