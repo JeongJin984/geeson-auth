@@ -15,3 +15,8 @@
 {"level":"error","ts":1749911579.474944,"msg":"user not found (username=%s)user1"}
 {"level":"error","ts":1749911590.6399353,"msg":"user not found (username=%s)user1"}
 {"level":"error","ts":1749911617.9508622,"msg":"user not found (username=%s)user1"}
+{"level":"error","ts":1749988053.8311534,"msg":"Failed to connect to database: failed to Ping DB: dial tcp [::1]:3306: connectex: No connection could be made because the target machine actively refused it."}
+{"level":"error","ts":1749988058.5201406,"msg":"Failed to connect to database: failed to Ping DB: dial tcp [::1]:3306: connectex: No connection could be made because the target machine actively refused it."}
+{"level":"error","ts":1749988073.0706606,"msg":"Failed to connect to database: failed to Ping DB: dial tcp [::1]:3306: connectex: No connection could be made because the target machine actively refused it."}
+{"level":"error","ts":1749988082.946216,"msg":"Failed to connect to database: failed to Ping DB: dial tcp [::1]:3306: connectex: No connection could be made because the target machine actively refused it."}
+{"level":"info","ts":1749988325.6960547,"msg":"Starting server on port 8087"}

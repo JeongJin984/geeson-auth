@@ -5,7 +5,6 @@ import (
 	"geeson-auth/config"
 	"geeson-auth/infra/persistence/mysql"
 	"geeson-auth/infra/router"
-	"geeson-auth/internal/domain/service"
 	"geeson-auth/pkg/logger"
 )
 
@@ -28,11 +27,8 @@ func main() {
 	// Initialize user repository
 	userRepo := mysql.NewUserRepository(db)
 
-	// Set user repository in auth service
-	service.SetUserRepository(userRepo)
-
-	// Setup router and start server
-	r := router.SetupRouter()
+	// Setup router with dependencies and start server
+	r := router.SetupRouter(userRepo)
 	port := config.GetPort()
 	logger.L().Info("Starting server on port " + port)
 	err = r.Run(":" + port)

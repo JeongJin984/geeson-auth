@@ -13,15 +13,17 @@ import (
 // Ensure UserRepository implements repository.UserRepository
 var _ repository.UserRepository = (*UserRepository)(nil)
 
+// UserRepository implements the repository.UserRepository interface using MySQL
 type UserRepository struct {
 	db *sql.DB
 }
 
-// NewUserRepository 는 포트 인터페이스 타입으로 반환합니다.
+// NewUserRepository creates a new UserRepository instance that implements the port interface
 func NewUserRepository(db *sql.DB) repository.UserRepository {
 	return &UserRepository{db: db}
 }
 
+// GetByID retrieves a user by their ID
 func (r *UserRepository) GetByID(id int64) (*model.User, error) {
 	const q = `
         SELECT id, username, email, password_hash, created_at
@@ -32,8 +34,7 @@ func (r *UserRepository) GetByID(id int64) (*model.User, error) {
 	u := &model.User{}
 	if err := row.Scan(&u.ID, &u.Username, &u.Email, &u.Password, &u.CreatedAt); err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
-			var errMsg = "user not found (id=%d)"
-			logger.L().Error(errMsg, id)
+			logger.L().Error(fmt.Sprintf("user not found (id=%d)", id))
 			return nil, fmt.Errorf("user not found (id=%d)", id)
 		}
 		return nil, fmt.Errorf("row.Scan failed: %w", err)
@@ -41,6 +42,7 @@ func (r *UserRepository) GetByID(id int64) (*model.User, error) {
 	return u, nil
 }
 
+// GetByUsername retrieves a user by their username
 func (r *UserRepository) GetByUsername(username string) (*model.User, error) {
 	const q = `
         SELECT id, username, email, password_hash, created_at
@@ -51,7 +53,7 @@ func (r *UserRepository) GetByUsername(username string) (*model.User, error) {
 	u := &model.User{}
 	if err := row.Scan(&u.ID, &u.Username, &u.Email, &u.Password, &u.CreatedAt); err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
-			logger.L().Error("user not found (username=", username, ")")
+			logger.L().Error(fmt.Sprintf("user not found (username=%s)", username))
 			return nil, fmt.Errorf("user not found (username=%s)", username)
 		}
 		return nil, fmt.Errorf("row.Scan failed: %w", err)

@@ -2,33 +2,33 @@ package service
 
 import (
 	"errors"
-	"geeson-auth/internal/interface/repository"
-	"geeson-auth/pkg/jwt"
+	"golang.org/x/crypto/bcrypt"
 )
 
 var (
+	// ErrInvalidCredentials is returned when authentication fails
 	ErrInvalidCredentials = errors.New("invalid credentials")
-	userRepo              repository.UserRepository
 )
 
-// SetUserRepository sets the user repository for the auth service
-func SetUserRepository(repo repository.UserRepository) {
-	userRepo = repo
+// AuthService provides authentication-related functionality
+type AuthService struct {}
+
+// NewAuthService creates a new instance of AuthService
+func NewAuthService() *AuthService {
+	return &AuthService{}
 }
 
-func Authenticate(username, password string) (string, error) {
-	if userRepo == nil {
-		return "", errors.New("user repository not initialized")
-	}
-
-	user, err := userRepo.GetByUsername(username)
+// HashPassword creates a bcrypt hash of the password
+func (s *AuthService) HashPassword(password string) (string, error) {
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	if err != nil {
-		return "", ErrInvalidCredentials
+		return "", err
 	}
+	return string(bytes), nil
+}
 
-	if user.Password != password {
-		return "", ErrInvalidCredentials
-	}
-
-	return jwt.GenerateJWT(username)
+// CheckPasswordHash compares a password with a hash to check if they match
+func (s *AuthService) CheckPasswordHash(password, hash string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
+	return err == nil
 }

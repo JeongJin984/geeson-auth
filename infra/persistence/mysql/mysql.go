@@ -9,6 +9,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
+// CreateMySqlDB establishes a connection to the MySQL database using environment variables
 func CreateMySqlDB() (*sql.DB, error) {
 	user := os.Getenv("DB_USER")     // e.g. "root"
 	password := os.Getenv("DB_PASS") // e.g. "secret"
@@ -26,12 +27,12 @@ func CreateMySqlDB() (*sql.DB, error) {
 		return nil, fmt.Errorf("failed to Open DB: %w", err)
 	}
 
-	// 커넥션 풀 설정 (필요에 맞게 조정)
-	db.SetMaxOpenConns(25)                 // 최대 열려있는 커넥션 수
-	db.SetMaxIdleConns(25)                 // 최대 대기 커넥션 수
-	db.SetConnMaxLifetime(5 * time.Minute) // 커넥션 최대 수명
+	// Connection pool settings (adjust as needed)
+	db.SetMaxOpenConns(25)                 // Maximum number of open connections
+	db.SetMaxIdleConns(25)                 // Maximum number of idle connections
+	db.SetConnMaxLifetime(5 * time.Minute) // Maximum connection lifetime
 
-	// 실제 연결 확인
+	// Verify the connection
 	if err := db.Ping(); err != nil {
 		db.Close()
 		return nil, fmt.Errorf("failed to Ping DB: %w", err)
