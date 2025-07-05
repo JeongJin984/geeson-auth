@@ -1,26 +1,23 @@
 package handler
 
 import (
+	"geeson-auth/internal/application"
 	"geeson-auth/internal/domain/model"
-	"geeson-auth/internal/usercase"
 	"geeson-auth/pkg/logger"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
-// AuthController handles HTTP requests related to authentication
 type AuthController struct {
-	authUseCase *usercase.AuthUseCase
+	authUseCase *usecase.AuthUseCase
 }
 
-// NewAuthController creates a new instance of AuthController
-func NewAuthController(authUseCase *usercase.AuthUseCase) *AuthController {
+func NewAuthController(authUseCase *usecase.AuthUseCase) *AuthController {
 	return &AuthController{
 		authUseCase: authUseCase,
 	}
 }
 
-// Login handles user login requests
 func (c *AuthController) Login(ctx *gin.Context) {
 	var req model.User
 	if err := ctx.ShouldBindJSON(&req); err != nil {

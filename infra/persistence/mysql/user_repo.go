@@ -4,26 +4,22 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"geeson-auth/internal/domain/repository"
 	"geeson-auth/pkg/logger"
 
 	"geeson-auth/internal/domain/model"
-	"geeson-auth/internal/interface/repository"
 )
 
-// Ensure UserRepository implements repository.UserRepository
 var _ repository.UserRepository = (*UserRepository)(nil)
 
-// UserRepository implements the repository.UserRepository interface using MySQL
 type UserRepository struct {
 	db *sql.DB
 }
 
-// NewUserRepository creates a new UserRepository instance that implements the port interface
 func NewUserRepository(db *sql.DB) repository.UserRepository {
 	return &UserRepository{db: db}
 }
 
-// GetByID retrieves a user by their ID
 func (r *UserRepository) GetByID(id int64) (*model.User, error) {
 	const q = `
         SELECT id, username, email, password_hash, created_at
@@ -42,7 +38,6 @@ func (r *UserRepository) GetByID(id int64) (*model.User, error) {
 	return u, nil
 }
 
-// GetByUsername retrieves a user by their username
 func (r *UserRepository) GetByUsername(username string) (*model.User, error) {
 	const q = `
         SELECT id, username, email, password_hash, created_at
